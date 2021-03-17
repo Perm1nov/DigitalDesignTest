@@ -8,7 +8,7 @@ public class Unpacker {
     public String unpack(String input) throws Exception {
         if (!isValid(input))
             throw exception;
-        int repeatCount = 1;
+        int repeatCount;
         StringBuilder numberStr = new StringBuilder();
         StringBuilder innerExpression = new StringBuilder();
         StringBuilder outputLine = new StringBuilder();
@@ -50,10 +50,9 @@ public class Unpacker {
         if (!valid)
             return false;
         valid = validateBrackets(input);
-        if(!valid)
+        if (!valid)
             return false;
-        valid = validateExpression(input);
-        return valid;
+        return validateExpression(input);
     }
 
     private boolean validateBrackets(String input) {
@@ -88,12 +87,10 @@ public class Unpacker {
                 if (i > 0) {
                     if (!Character.isDigit(input.charAt(i - 1))) {
                         exception.addMessage("Отсутствует число перед открывающейся скобкой", i - 1, input);
-                        //valid = false;
                         return false;
                     }
                 } else {
                     exception.addMessage("Отсутствует число перед открывающейся скобкой", i, input);
-                    //valid = false;
                     return false;
                 }
             }
@@ -105,9 +102,7 @@ public class Unpacker {
                         i++;
                     else {
                         exception.addMessage("Число не перед открывающейся скобкой", i, input);
-                        //valid = false;
                         return false;
-                        //break;
                     }
                 }
             } else if (Character.isDigit(charAtIndex)) {
@@ -118,4 +113,3 @@ public class Unpacker {
         return true;
     }
 }
-//[^a-zA-Z\d\[\]]
